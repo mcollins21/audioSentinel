@@ -2,7 +2,7 @@
 # AudioSentinel
 #
 # AudioSentinel is a python program that detects audio input/output
-# drivers on your device.
+# drivers on devices.
 #
 # © Michael Collins 2024
 ##################################################################
@@ -28,19 +28,28 @@ app = QApplication(sys.argv)
 # Redirect stdout to the OutputRedirector
 sys.stdout = OutputRedirector(app)
 
-def driverSearch():
-
+def driverInputSearch():
     server = Server().boot()
-
     midiUtils.deviceInput()
+
+def driverOutputSearch():
+    server = Server().boot()
+    midiUtils.deviceOutputs()
 
 window = QWidget()
 window.setWindowTitle("Audio Device Scanner")
 
+# input scanner button
 scan_button = QPushButton("Scan Input Devices", window)
-scan_button.clicked.connect(driverSearch)
+scan_button.clicked.connect(driverInputSearch)
 scan_button.move(100, 50)
 
+# output scanner button
+scan_button = QPushButton("Scan Output Devices", window)
+scan_button.clicked.connect(driverOutputSearch)
+scan_button.move(100, 0)
+
+# output window
 output_text = QTextEdit(window)
 output_text.move(50, 100)  # Adjust position as needed
 output_text.setReadOnly(True)  # Make it read-only
