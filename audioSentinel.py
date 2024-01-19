@@ -79,3 +79,4 @@ sys.stdout.outputWritten.connect(output_text.append)
 
 window.show()
 sys.exit(app.exec_())
+
